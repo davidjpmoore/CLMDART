@@ -2,7 +2,7 @@
 #Author: Dave Moore
 #Date 3/18/2015
 # install.packages("MODISTools")
-# library(MODISTools)
+library(MODISTools)
 # Sitename/FLUXNET ID: Harvard Forest / US-Ha1
 # Country: USA
 # State/Province: Massachusetts
@@ -28,6 +28,12 @@ GetProducts()
 
 #ask ORNL for the bands available for MCD43A1
 AvailBandsMCD43A1 = GetBands(Product = "MCD43A1")
+
+AvailBandsMCD43A2 = GetBands(Product = "MCD43A2")
+# AvailBandsMCD43A2
+# [1] "BRDF_Albedo_Quality"      "BRDF_Albedo_Ancillary"    "BRDF_Albedo_Band_Quality"
+# [4] "Snow_BRDF_Albedo" 
+
 #ask ORNL for the dates available for MCD43A1
 AvailDatesMCD43A1 =GetDates(Product = "MCD43A1", Lat = modis.subset$lat[1], Long = modis.subset$long[1])
 
@@ -68,3 +74,9 @@ subset.string <- read.csv(list.files(pattern = ".asc")[1],
                           header = FALSE, as.is = TRUE)
 
 #can I use dplyr to re-order the data 
+library(dplyr)
+library(tidyr)
+ 
+v10 appears to be date or day of year
+
+
