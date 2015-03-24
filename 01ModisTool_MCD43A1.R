@@ -76,7 +76,8 @@ subset.string <- read.csv(list.files(pattern = ".asc")[1],
 #can I use dplyr to re-order the data 
 library(dplyr)
 library(tidyr)
- 
-v10 appears to be date or day of year
 
+yearIND = as.numeric(substr(AvailDatesMCD43A1,2,5))
+DOYIND = as.numeric(substr(AvailDatesMCD43A1,6,8))
+YearDOYIND = as.numeric(substr(AvailDatesMCD43A1,2,8))
 
