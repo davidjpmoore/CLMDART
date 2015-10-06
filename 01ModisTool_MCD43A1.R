@@ -2,7 +2,7 @@
 #Author: Dave Moore
 #Date 3/18/2015
 # install.packages("MODISTools")
-library(MODISTools)
+require(MODISTools)
 # Sitename/FLUXNET ID: Harvard Forest / US-Ha1
 # Country: USA
 # State/Province: Massachusetts
@@ -49,26 +49,29 @@ MODISSubsets(LoadDat = modis.subset, Products = "MCD43A1",
              Bands = c(paste(AvailBandsMCD43A1[1]),
                        paste(AvailBandsMCD43A1[2]),
                        paste(AvailBandsMCD43A1[3]),
-                       paste(AvailBandsMCD43A1[4]),
-                       paste(AvailBandsMCD43A1[5]),
-                       paste(AvailBandsMCD43A1[6]),
-                       paste(AvailBandsMCD43A1[7]),
-                       paste(AvailBandsMCD43A1[8]),
-                       paste(AvailBandsMCD43A1[9]),
-                       paste(AvailBandsMCD43A1[10]),
-                       paste(AvailBandsMCD43A1[11]),
-                       paste(AvailBandsMCD43A1[12]),
-                       paste(AvailBandsMCD43A1[13]),
-                       paste(AvailBandsMCD43A1[14]),
-                       paste(AvailBandsMCD43A1[15]),
-                       paste(AvailBandsMCD43A1[16]),
-                       paste(AvailBandsMCD43A1[17]),
-                       paste(AvailBandsMCD43A1[18]),
-                       paste(AvailBandsMCD43A1[19]),
-                       paste(AvailBandsMCD43A1[20]),
-                       paste(AvailBandsMCD43A1[21])),
+             paste(AvailBandsMCD43A1[4]),
+             paste(AvailBandsMCD43A1[5]),
+             paste(AvailBandsMCD43A1[6]),
+             paste(AvailBandsMCD43A1[7]),
+             paste(AvailBandsMCD43A1[8]),
+             paste(AvailBandsMCD43A1[9]),
+             paste(AvailBandsMCD43A1[10]),
+             paste(AvailBandsMCD43A1[11]),
+             paste(AvailBandsMCD43A1[12]),
+             paste(AvailBandsMCD43A1[13]),
+             paste(AvailBandsMCD43A1[14]),
+             paste(AvailBandsMCD43A1[15]),
+             paste(AvailBandsMCD43A1[16]),
+             paste(AvailBandsMCD43A1[17]),
+             paste(AvailBandsMCD43A1[18]),
+             paste(AvailBandsMCD43A1[19]),
+             paste(AvailBandsMCD43A1[20]),
+             paste(AvailBandsMCD43A1[21])),
              Size = c(1,1))
+# 
 
+             
+             
 #open data from .asc file
 subset.string <- read.csv(list.files(pattern = ".asc")[1],
                           header = FALSE, as.is = TRUE)
@@ -80,4 +83,31 @@ library(tidyr)
 yearIND = as.numeric(substr(AvailDatesMCD43A1,2,5))
 DOYIND = as.numeric(substr(AvailDatesMCD43A1,6,8))
 YearDOYIND = as.numeric(substr(AvailDatesMCD43A1,2,8))
+
+
+Var14 = as.numeric(unlist(subset.string[14]))
+summary(Var14)
+plot(Var14[Var14<5000])
+# 
+# save (subset.string, file='MCD43A1_subset.rdata') 
+
+HarvAlbedo <- as.data.frame(lapply(subset.string, function(x){replace(x, x ==32767,NA)}))
+Year= as.numeric(substr(HarvAlbedo$V8, 2,5))
+DOY = as.numeric (substr(HarvAlbedo$V8, 6,8))
+
+
+= tapply(FEFACOmonthly$CO21, FEFACOmonthly$DayIndex, min, na.rm = TRUE)
+
+
+MODISSummaries()
+
+MODISSummaries(LoadDat = modis.subset, Product = "MCD43A1", Bands = paste(AvailBandsMCD43A1[14]),
+               ValidRange = c(-2000,10000), NoDataFill = -3000, ScaleFactor = 0.0001,
+               StartDate = TRUE, QualityScreen = FALSE
+               )
+
+
+Junk1= read.table("MODIS_Summary_MCD43A1_2015-04-07_h15-m27-s33.csv",header = T,sep = ",")
+
+
 

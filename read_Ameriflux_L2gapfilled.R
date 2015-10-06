@@ -97,6 +97,7 @@ tcheckdiff = diff(USNR1$HRMIN, lag=1)
 # 1998	1	2	-9999	3.94	-17.47	0	6.6	4.23	60.2	3.9	0.2
 # 1998	1	2.5	2.55	8.3	-21.42	0	6.6	4.22	59.94	3.9	0.33
 # 
+aggFluxtemp=subset(aggFluxtemp,aggFluxtemp$YEAR>1998)
 Year = aggFluxtemp$YEAR
 DoY = aggFluxtemp$DOY
 #note the format for Hour is incorrect wrt EddyProc  - L2 data is 0 30 100 130 etc | required format is 0 0.5 1 1.5 etc 
@@ -131,7 +132,7 @@ write.table(EddyProcHead, file = paste0("data/EddyProcInput/",substr(tempFilelis
 #Create dataframe
 EddyProcunits =data.frame("-", "-", "-",  "umolm-2s-1",  "Wm-2",  "Wm-2",	"Wm-2",	"degC",	"degC",	"%",	"hPa",	"ms-1")
 #write to file
-write.table(EddyProcunits, paste0("data/EddyProcInput/",substr(tempFilelist[1], 5, 9),".txt"), row.names = F, col.names=FALSE,quote = F, sep="\t",append=T)
+write.table(EddyProcunits, paste0("data/EddyProcInput/",substr(tempFilelist[1], 5, 9),"99on",".txt"), row.names = F, col.names=FALSE,quote = F, sep="\t",append=T)
 
 #Write aata required for EddyProc & append to the file
 #create dataframe
